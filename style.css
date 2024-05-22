@@ -146,7 +146,7 @@
 }
 
 .letter-spacing {
-    letter-spacing: 0.3rem;
+    letter-spacing: 0.2rem;
 }
 
 .h1 {
@@ -157,14 +157,35 @@
     background-clip: text;
     -webkit-background-clip: text;
 }
-
-.quiz-box {
-    
-    width: 70%;
-    height: 200px;
-    background-color: #dedede6e;
+.user-name {
+    font-size: 34px;
 }
 
+.quiz-box {
+    width: 70%;
+    height: auto;
+    background-color: #dedede6e;
+}
+.quiz-box p {
+    font-weight: 600;
+}
+.option {
+    margin-top: 15px;
+}
+.option input[type="radio"] {
+    margin-right: 10px;
+}
+.option label {
+    font-size: 1.2rem;
+    color: #333;
+    cursor: pointer;
+}
+.option label:hover {
+    color: #007bff;
+}
+.option label + input[type="radio"] {
+    margin-top: 10px;
+}
 @keyframes pulse {
     from {
         transform: scale(0.9);
