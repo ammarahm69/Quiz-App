@@ -1,24 +1,25 @@
 let submit = document.getElementById('submitButton');
 submit.addEventListener('click', (event) => {
-  event.preventDefault()
+  event.preventDefault();
+  
   let firstName = document.getElementById('name').value;
   let lastName = document.getElementById('Lastname').value;
   let email = document.getElementById('email').value;
-  console.log(email);
+  
   let registerForm = document.getElementById('registerForm');
   registerForm.style.display = 'none';
+  
   let mainScreen = document.getElementById('mainHome');
   let box = document.getElementById('boxes');
   let resultbtn = document.getElementById('result');
-  resultbtn.style.display='block';
-  
-
+  resultbtn.style.display = 'block';
 
   mainScreen.innerHTML = `
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 mt-4 letter-spacing">
-    <h1 class="h1">Welcome<span class ="user-name"> ${firstName.toUpperCase()} ${lastName.toUpperCase()}</span> to Quiz App</h1>
+      <h1 class="h1">Welcome<span class="user-name"> ${firstName.toUpperCase()} ${lastName.toUpperCase()}</span> to Quiz App</h1>
     </div>
-    `
+  `;
+
   function Question(question, options, answer) {
     this.question = question;
     this.options = options;
@@ -43,7 +44,7 @@ submit.addEventListener('click', (event) => {
     ),
     new Question(
       "What is the HTML tag for a hyperlink?",
-      ["<code>a</code>", "<code>link</code>", "<code>button<code>", "<code>img</code>"],
+      ["<code>a</code>", "<code>link</code>", "<code>button</code>", "<code>img</code>"],
       "<code>a</code>"
     ),
     new Question(
@@ -77,28 +78,40 @@ submit.addEventListener('click', (event) => {
       "Cascading Style Sheets"
     )
   ];
-let score = 0;
+  console.log(quiz.length);
 
   for (const key in quiz) {
-    console.log(quiz[key].answer);
-    // console.log(quiz[key]);
     const questionHTML = `
-          <div class="col  d-flex flex-column">
-            <div class="quiz-box pt-4 ps-5 ms-5 mb-5">
-              <p class="fs-4">Q)${quiz[key].question}</p>
-              <div class="option">
-                ${quiz[key].options.map((option, index) => {
-      return `
-                    <input type="radio" id="option${index + 1}" name="${key}" value="${option}">
-                    <label for="option${index + 1}">${option}</label><br>
-                  `;
-    }).join('')}
-              </div>
-            </div>
+      <div class="col d-flex flex-column">
+        <div class="quiz-box pt-4 ps-5 ms-5 mb-5">
+          <p class="fs-4">Q${parseInt(key)+1}) ${quiz[key].question}</p>
+          <div class="option">
+            ${quiz[key].options.map((option, index) => {
+              return `
+                <input type="radio" id="q${key}_option${index + 1}" name="question${key}" value="${option}">
+                <label for="q${key}_option${index + 1}">${option}</label><br>
+              `;
+            }).join('')}
           </div>
-        `;
+        </div>
+      </div>
+    `;
     box.innerHTML += questionHTML;
-
   }
 
+  resultbtn.addEventListener('click', () => {
+    let score = 0;
+    for (const key in quiz) {
+      let selectedOption = document.querySelector(`input[name="question${key}"]:checked`);
+      if (selectedOption) {
+        const userAnswer = selectedOption.value;
+        const correctAnswer = quiz[key].answer;
+        if (userAnswer === correctAnswer) {
+          score++;
+        }
+      }
+    }
+    console.log(`Your score is ${score} / ${quiz.length}`);
+    alert(`Your score is ${score} / ${quiz.length}`);
+  });
 });

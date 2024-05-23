@@ -187,7 +187,7 @@
     margin-top: 10px;
 }
 .bt {
-    padding: 17px 40px;
+    padding: 14px 30px;
     border-radius: 50px;
     cursor: pointer;
     border: 0;
@@ -196,6 +196,7 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
     font-size: 15px;
+    margin-bottom: 3rem;
     transition: all 0.5s ease;
     position: relative;
     left: 5em;
