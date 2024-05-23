@@ -9,6 +9,13 @@ submit.addEventListener('click', (event) => {
     registerForm.style.display = 'none';
     let mainScreen = document.getElementById('mainHome');
     let box = document.getElementById('boxes');
+
+
+    mainScreen.innerHTML = `
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 mt-4 letter-spacing">
+    <h1 class="h1">Welcome<span class ="user-name"> ${firstName.toUpperCase()} ${lastName.toUpperCase()}</span> to Quiz App</h1>
+    </div>
+    `
     function Question(question, options, answer) {
         this.question = question;
         this.options = options;
@@ -17,9 +24,9 @@ submit.addEventListener('click', (event) => {
 
     let quiz = [
         new Question(
-            "What is the purpose of the `<html>` tag in HTML?",
-            ["To define a paragraph", "To define a hyperlink", "To define the document structure", "To define a list"],
-            "To define the document structure"
+            "HTML stands for ?",
+            ["Hyper Text Markdown Language", "Hyper Text Markup Language", "Hyper Text Machine Language", "Hyperlink Text Markup Language"],
+            "Hyper Text Markup Language"
         ),
         new Question(
             "What is the CSS selector to target all elements with the class 'header'?",
@@ -28,67 +35,64 @@ submit.addEventListener('click', (event) => {
         ),
         new Question(
             "What is the JavaScript syntax to alert 'Hello World'?",
-            ["`alert('Hello World');`", "`console.log('Hello World');`", "`document.write('Hello World');`", "`window.alert('Hello World');`"],
-            "`alert('Hello World');`"
+            ["alert('Hello World');", "console.log('Hello World');", "document.write('Hello World');", "window.alert('Hello World');"],
+            "alert('Hello World');"
         ),
         new Question(
             "What is the HTML tag for a hyperlink?",
-            ["`<a>`", "`<link>`", "`<button>`", "`<img>`"],
-            "`<a>`"
+            ["<code>a</code>", "<code>link</code>", "<code>button<code>", "<code>img</code>"],
+            "<code>a</code>"
         ),
         new Question(
             "What is the CSS property to change the text color?",
-            ["`background-color`", "`color`", "`font-size`", "`text-align`"],
-            "`color`"
+            ["background-color", "color", "font-size", "text-align"],
+            "color"
         ),
         new Question(
             "What is the JavaScript method to get an element by its ID?",
-            ["`getElementbyId()`", "`getElementById()`", "`getElementsByName()`", "`getElementsByTagName()`"],
-            "`getElementById()`"
+            ["getElementbyId()", "getElementById()", "getElementsByName()", "getElementsByTagName()"],
+            "getElementById()"
         ),
         new Question(
             "What is the HTML attribute to specify the image source?",
-            ["`src`", "`alt`", "`title`", "`href`"],
-            "`src`"
+            ["src", "alt", "title", "href"],
+            "src"
         ),
         new Question(
             "What is the CSS unit for pixel measurements?",
-            ["`%`", "`px`", "`em`", "`pt`"],
-            "`px`"
-        ),
-        new Question(
+            ["<code>%</code>", "<code>px</code>", "<code>em</code>", "<code>pt</code>"],
+            "<code>px</code>"
+          ),
+          new Question(
             "What is the JavaScript keyword for a variable declaration?",
-            ["`let`", "`const`", "`var`", "`function`"],
-            "`let`"
-        ),
-        new Question(
-            "What is the HTML tag for a list item?",
-            ["`<li>`", "`<ul>`", "`<ol>`", "`<dl>`"],
-            "`<li>`"
-        )
+            ["<code>let</code>", "<code>const</code>", "<code>var</code>", "<code>function</code>"],
+            "<code>let</code>"
+          ),
+          new Question(
+            "CSS stands for ?",
+            ["Cascading Style Sheets", "Cascading Scripting Sheets", "Creative Styling Solutions", "Colorful Styling System"],
+            "Cascading Style Sheets"
+          )
     ];
 
-    mainScreen.innerHTML = `
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 mt-4 letter-spacing">
-    <h1 class="h1">Welcome<span class ="user-name"> ${firstName.toUpperCase()} ${lastName.toUpperCase()}</span> to Quiz App</h1>
-</div>
-    `
-    box.innerHTML = `
-    <div class="col  d-flex flex-column">
-    <div class="quiz-box pt-4 ps-5 ms-5 mb-5">
-        <p class="fs-4">Q ) HTML stands for  ?</p>
-        <div class="option">
-            <input type="radio" id="option1" name="html" value="HyperText Markup Language">
-            <label for="option1">HyperText Markup Language</label><br>
-            <input type="radio" id="option2" name="html" value="HyperText Markdown Language">
-            <label for="option2">HyperText Markdown Language</label><br>
-            <input type="radio" id="option3" name="html" value="Hyperlink and Text Markup Language">
-            <label for="option3">Hyperlink and Text Markup Language</label><br>
-            <input type="radio" id="option4" name="html" value="Home Tool Markup Language">
-            <label for="option4">Home Tool Markup Language</label><br>
-        </div>
-    </div>
-</div>
-
-    `
+    for (const key in quiz) {
+        console.log(quiz[key].answer);
+        // console.log(quiz[key]);
+        const questionHTML = `
+          <div class="col  d-flex flex-column">
+            <div class="quiz-box pt-4 ps-5 ms-5 mb-5">
+              <p class="fs-4">Q)${quiz[key].question}</p>
+              <div class="option">
+                ${quiz[key].options.map((option, index) => {
+                  return `
+                    <input type="radio" id="option${index +1}" name="${key}" value="${option}">
+                    <label for="option${index + 1}">${option}</label><br>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+        box.innerHTML += questionHTML;
+      }
 });
