@@ -1,17 +1,18 @@
 let submit = document.getElementById('submitButton');
 submit.addEventListener('click', (event) => {
   event.preventDefault();
-  
+
   let firstName = document.getElementById('name').value;
   let lastName = document.getElementById('Lastname').value;
   let email = document.getElementById('email').value;
-  
+
   let registerForm = document.getElementById('registerForm');
   registerForm.style.display = 'none';
-  
+
   let mainScreen = document.getElementById('mainHome');
   let box = document.getElementById('boxes');
   let resultbtn = document.getElementById('result');
+  let resultScreen = document.getElementById('res')
   resultbtn.style.display = 'block';
 
   mainScreen.innerHTML = `
@@ -70,7 +71,7 @@ submit.addEventListener('click', (event) => {
     new Question(
       "What is the JavaScript keyword for a variable declaration?",
       ["<code>let</code>", "<code>const</code>", "<code>var</code>", "<code>function</code>"],
-      "<code>let</code>"
+      "<code>var</code>"
     ),
     new Question(
       "CSS stands for ?",
@@ -84,14 +85,14 @@ submit.addEventListener('click', (event) => {
     const questionHTML = `
       <div class="col d-flex flex-column">
         <div class="quiz-box pt-4 ps-5 ms-5 mb-5">
-          <p class="fs-4">Q${parseInt(key)+1}) ${quiz[key].question}</p>
+          <p class="fs-4">Q${parseInt(key) + 1}) ${quiz[key].question}</p>
           <div class="option">
             ${quiz[key].options.map((option, index) => {
-              return `
+      return `
                 <input type="radio" id="q${key}_option${index + 1}" name="question${key}" value="${option}">
                 <label for="q${key}_option${index + 1}">${option}</label><br>
               `;
-            }).join('')}
+    }).join('')}
           </div>
         </div>
       </div>
@@ -112,6 +113,15 @@ submit.addEventListener('click', (event) => {
       }
     }
     console.log(`Your score is ${score} / ${quiz.length}`);
-    alert(`Your score is ${score} / ${quiz.length}`);
+    let marks = () => {
+      mainScreen.style.display = 'none';
+      box.style.display = 'none';
+      resultbtn.style.display = 'none'
+      resultScreen.innerHTML = `
+      <h1 class="text-center mt-5">Your score is : ${score} / ${quiz.length}</h1>
+      `
+    }
+    marks()
+
   });
 });
